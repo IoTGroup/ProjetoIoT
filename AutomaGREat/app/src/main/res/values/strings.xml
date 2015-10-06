@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">AutomaGREat</string>
-
-    <string name="hello_world">ProjetoIoT!</string>
     <string name="action_settings">Settings</string>
+    <string name="enter_pin">Enter your PIN</string>
+    <string name="error_empty_pin">This input requires a value!</string>
+    <string name="error_wrong_pin">Wrong PIN</string>
+    <string name="all_air">All A/C in this room</string>
+    <string name="all_lamp">All lamps in this room</string>
+    <string name="refresh">Refresh</string>
 </resources>
