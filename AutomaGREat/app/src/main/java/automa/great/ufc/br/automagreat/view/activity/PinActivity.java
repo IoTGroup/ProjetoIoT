@@ -21,10 +21,11 @@ public class PinActivity extends AppCompatActivity {
         bPin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String pin = edPin.getText().toString();
+
                 if(pin.equals("123456")){
                     startActivity(new Intent(PinActivity.this, TabsActivity.class));
-                    //Toast.makeText(getApplicationContext(), "Correct PIN", Toast.LENGTH_LONG).show();
                 } else if (pin.equals("")){
                     edPin.setError(getString(R.string.error_empty_pin));
                 } else {

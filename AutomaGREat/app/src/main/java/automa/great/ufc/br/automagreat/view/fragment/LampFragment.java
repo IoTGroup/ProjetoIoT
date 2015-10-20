@@ -1,6 +1,7 @@
 package automa.great.ufc.br.automagreat.view.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,8 @@ import android.widget.Switch;
 
 import java.util.ArrayList;
 
+import automa.great.ufc.br.automagreat.view.activity.DialogSliderActivity;
+import automa.great.ufc.br.automagreat.view.activity.TabsActivity;
 import automa.great.ufc.br.automagreat.view.adapter.OnOffListAdapter;
 import automa.great.ufc.br.automagreat.R;
 import automa.great.ufc.br.automagreat.model.Resource;
@@ -43,15 +46,19 @@ public class LampFragment extends Fragment {
         resources.add(lamp3);
 
         this.context = getActivity();
+        Log.i("Resource", context.toString());
 
         lv_lamp = (ListView) v.findViewById(R.id.lv_lamp);
 
         lv_lamp.setAdapter(new OnOffListAdapter(context, resources));
+        lv_lamp.setItemsCanFocus(false);
 
         lv_lamp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Resource", resources.get(position).getType() + " is checked = " + resources.get(position).getStatus());
+                //Log.i("Resource", resources.get(position).getType() + " is checked = " + resources.get(position).getStatus());
+                //Log.i("Resource", "TESTANDO TESTANDO TESTANDO...");
+                startActivity(new Intent(getActivity(), DialogSliderActivity.class));
             }
         });
 

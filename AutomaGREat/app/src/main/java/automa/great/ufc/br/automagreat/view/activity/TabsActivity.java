@@ -5,8 +5,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import automa.great.ufc.br.automagreat.R;
@@ -62,12 +64,23 @@ public class TabsActivity extends ActionBarActivity {
         switch (id) {
             case R.id.action_settings :
                 Toast.makeText(TabsActivity.this, "Settings", Toast.LENGTH_LONG).show();
+                Log.i("Resource", "TESTANDO TESTANDO TESTANDO...");
                 return true;
             case R.id.action_refresh:
                 Toast.makeText(TabsActivity.this, "Refresh", Toast.LENGTH_LONG).show();
+                Log.i("Resource", "TESTANDO TESTANDO TESTANDO...");
                 return true;
             default:
+                Log.i("Resource", "TESTANDO TESTANDO TESTANDO...");
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    /*protected void onListItemClick(ListView l, View v, int position, long id) {
+        // TODO Auto-generated method stub
+        super.onListItemClick(l, v, position, id);
+
+
+    }*/
+
 }

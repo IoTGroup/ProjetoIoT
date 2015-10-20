@@ -44,12 +44,11 @@ public class AirFragment extends Fragment {
         lv_air = (ListView) v.findViewById(R.id.lv_air);
 
         lv_air.setAdapter(new OnOffListAdapter(context, resources));
+
         lv_air.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                resources.get(position).setStatus(!switch_air.isChecked());
-                switch_air.setChecked(!switch_air.isChecked());
-                Log.i("Resource", resources.get(position).getType() + " is checked = " + resources.get(position).getStatus());
+                //
             }
         });
         return v;
