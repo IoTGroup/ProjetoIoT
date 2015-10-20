@@ -28,19 +28,26 @@ public class LampFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View v =inflater.inflate(R.layout.fragment_lamp,container,false);
 
-        Resource lamp1 = new Resource("Lamp1", "close to the datashow", Resource.LAMP);
-        Resource lamp2 = new Resource("Lamp2", "", Resource.LAMP);
+        Resource lamp0 = new Resource("All lamps", "", Resource.LAMP);
+        Resource lamp1 = new Resource("Lamp 1", "Datashow", Resource.LAMP);
+        Resource lamp2 = new Resource("Lamp 2", "Door", Resource.LAMP);
+        Resource lamp3 = new Resource("Lamp 3", "Blackboard", Resource.LAMP);
+
         final ArrayList<Resource> resources = new ArrayList<>();
+        resources.add(lamp0);
         resources.add(lamp1);
         resources.add(lamp2);
+        resources.add(lamp3);
 
         this.context = getActivity();
-        switch_lamp = (Switch) v.findViewById(R.id.switch_onoff_list_lamp);
+
         lv_lamp = (ListView) v.findViewById(R.id.lv_lamp);
 
         lv_lamp.setAdapter(new OnOffListAdapter(context, resources));
+
         lv_lamp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

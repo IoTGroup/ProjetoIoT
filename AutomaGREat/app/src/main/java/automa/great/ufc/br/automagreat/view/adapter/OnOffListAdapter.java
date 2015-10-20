@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -56,6 +57,13 @@ public class OnOffListAdapter extends BaseAdapter {
         TextView name = (TextView) convertView.findViewById(R.id.tv_object_name);
         TextView description = (TextView) convertView.findViewById(R.id.tv_description);
         Switch onoff = (Switch) convertView.findViewById(R.id.switch_onoff_list);
+
+        onoff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("Resource", "testando...123");
+            }
+        });
 
         name.setText(r.getName());
         if (r.getType() == Resource.AIR) {
