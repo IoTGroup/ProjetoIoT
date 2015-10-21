@@ -12,13 +12,6 @@
         android:layout_width="match_parent"
         />
 
-    <automa.great.ufc.br.automagreat.view.layout.SlidingTabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="2dp"
-        android:background="@color/colorPrimary"/>
-
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_height="match_parent"
@@ -26,4 +19,18 @@
         android:layout_weight="1"
         ></android.support.v4.view.ViewPager>
 
+    <automa.great.ufc.br.automagreat.view.layout.SlidingTabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:background="@color/colorPrimary"/>
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="New Button"-->
+        <!--android:id="@+id/button"-->
+        <!--android:onClick="turnOn"-->
+        <!--android:layout_gravity="center_horizontal" />-->
 </LinearLayout>
