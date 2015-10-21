@@ -6,7 +6,7 @@
 
     <ListView
         android:id="@+id/lv_air"
-        android:clickable="true"
+        android:clickable="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

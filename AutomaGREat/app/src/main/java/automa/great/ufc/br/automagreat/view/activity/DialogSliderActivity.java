@@ -1,12 +1,11 @@
 package automa.great.ufc.br.automagreat.view.activity;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 import automa.great.ufc.br.automagreat.R;
 
 public class DialogSliderActivity extends Activity {
@@ -31,18 +30,21 @@ public class DialogSliderActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
                 progress = progresValue;
-                Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+                Log.i("Resource", "Mudança em progresso 000...");
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
+                Log.i("Resource", "Inicio do progresso 000...");
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 textView.setText("Covered: " + progress + "/" + seekBar.getMax());
-                Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
+                Log.i("Resource", "Parada do progresso 000...");
             }
         });
     }

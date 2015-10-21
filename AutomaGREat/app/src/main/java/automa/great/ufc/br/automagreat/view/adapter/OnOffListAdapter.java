@@ -2,16 +2,19 @@ package automa.great.ufc.br.automagreat.view.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,11 +22,12 @@ import java.util.List;
 
 import automa.great.ufc.br.automagreat.R;
 import automa.great.ufc.br.automagreat.model.Resource;
+import automa.great.ufc.br.automagreat.view.activity.DialogSliderActivity;
 
 /**
  * Created by Thae on 05/10/2015.
  */
-public class OnOffListAdapter extends BaseAdapter {
+public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickListener {
     private Context context;
     private List<Resource> resources;
     private List<Switch> listSwitches;
@@ -36,6 +40,7 @@ public class OnOffListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+
         return resources.size();
     }
 
@@ -86,9 +91,39 @@ public class OnOffListAdapter extends BaseAdapter {
                             Log.i("Resource", "testando..." + position);
                         }
                 } else {
-                    //ligar cada uma das lampadas...
-                }
 
+                    if(isChecked){
+
+                        if(position == 1){
+                            //ligar lampada 1
+                        }else if(position == 2){
+                            //ligar lampada 2
+                        }else{
+                            //ligar lampada 3
+                        }
+
+                    }else{
+
+                        if(position == 1){
+                            //desligar lampada 1
+                        }else if(position == 2){
+                            //desligar lampada 2
+                        }else{
+                            //desligar lampada 3
+                        }
+                    }
+                }
+            }
+        });
+
+        View overflow = convertView.findViewById(R.id.menu_overflow);
+        overflow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(context, v);
+                popupMenu.setOnMenuItemClickListener(OnOffListAdapter.this);
+                popupMenu.inflate(R.menu.popup_menu);
+                popupMenu.show();
             }
         });
 
@@ -109,5 +144,19 @@ public class OnOffListAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.overflow_intensity:
+                context.startActivity(new Intent(context, DialogSliderActivity.class));
+                return true;
+
+            case R.id.overflow_color:
+                Log.i("Resource", "TESTANDO COR...");
+                return true;
+        }
+        return true;
     }
 }

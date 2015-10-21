@@ -5,4 +5,6 @@
     <color name="text">#787878</color>
     <color name="colorAccent">#83CBC1</color>
     <color name="tabsScrollColor">#004D40</color>
+    <color name="logo_blue">#1063AE</color>
+    <color name="logo_yellow">#FBC141</color>
 </resources>

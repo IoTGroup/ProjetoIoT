@@ -7,4 +7,6 @@
     <string name="all_air">All A/C </string>
     <string name="all_lamp">All lamps</string>
     <string name="refresh">Refresh</string>
+    <string name="set_intensity">Set intensity</string>
+    <string name="set_color">Set color</string>
 </resources>

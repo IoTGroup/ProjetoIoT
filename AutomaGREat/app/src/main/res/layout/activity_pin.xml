@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:hint="@string/enter_pin"
+        android:textColorHint="@color/colorPrimaryDark"
         android:imeOptions="actionDone"
         android:inputType="numberPassword"
         android:lines="1"

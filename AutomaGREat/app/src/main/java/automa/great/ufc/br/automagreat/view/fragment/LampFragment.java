@@ -51,13 +51,12 @@ public class LampFragment extends Fragment {
         lv_lamp = (ListView) v.findViewById(R.id.lv_lamp);
 
         lv_lamp.setAdapter(new OnOffListAdapter(context, resources));
-        lv_lamp.setItemsCanFocus(false);
+        //lv_lamp.setItemsCanFocus(false);
 
         lv_lamp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Log.i("Resource", resources.get(position).getType() + " is checked = " + resources.get(position).getStatus());
-                //Log.i("Resource", "TESTANDO TESTANDO TESTANDO...");
+
                 startActivity(new Intent(getActivity(), DialogSliderActivity.class));
             }
         });
