@@ -3,6 +3,7 @@ package automa.great.ufc.br.automagreat.view.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import java.util.List;
 import automa.great.ufc.br.automagreat.R;
 import automa.great.ufc.br.automagreat.model.Resource;
 import automa.great.ufc.br.automagreat.view.activity.DialogSliderActivity;
+import automa.great.ufc.br.automagreat.interfaces.ILamp;
 
 /**
  * Created by Thae on 05/10/2015.
@@ -31,6 +33,9 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
     private Context context;
     private List<Resource> resources;
     private List<Switch> listSwitches;
+    private ILamp iLamp;
+    Activity activity;
+    private int position;
 
     public OnOffListAdapter (Context context, ArrayList<Resource> resources) {
         this.context = context;
@@ -57,6 +62,9 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
+        this.position = position;
+
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.item_onoff, null);
@@ -66,6 +74,9 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
         ImageView icon = (ImageView) convertView.findViewById(R.id.iv_icon);
         TextView name = (TextView) convertView.findViewById(R.id.tv_object_name);
         TextView description = (TextView) convertView.findViewById(R.id.tv_description);
+
+        activity = (Activity) context;
+        iLamp = (ILamp) activity;
 
         Switch onoff = (Switch) convertView.findViewById(R.id.switch_onoff_list);
         listSwitches.add(onoff);
@@ -79,37 +90,41 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
                         Iterator<Switch> iterator = listSwitches.iterator();
                         while (iterator.hasNext()) {
                             iterator.next().setChecked(true);
-                            //ligar cada lampada
+
                         }
-                        Log.i("Resource", "testando... " + position);
+                        iLamp.on(1);
+                        iLamp.on(2);
+                        iLamp.on(3);
                     } else {
                         Iterator<Switch> iterator = listSwitches.iterator();
                         while (iterator.hasNext()) {
                             iterator.next().setChecked(false);
                             //desligar as lampadas
                         }
-                            Log.i("Resource", "testando..." + position);
-                        }
+                        iLamp.off(1);
+                        iLamp.off(2);
+                        iLamp.off(3);
+                    }
                 } else {
 
                     if(isChecked){
 
                         if(position == 1){
-                            //ligar lampada 1
+                            iLamp.on(1);
                         }else if(position == 2){
-                            //ligar lampada 2
+                            iLamp.on(2);
                         }else{
-                            //ligar lampada 3
+                            iLamp.on(3);
                         }
 
                     }else{
 
                         if(position == 1){
-                            //desligar lampada 1
+                            iLamp.off(1);
                         }else if(position == 2){
-                            //desligar lampada 2
+                            iLamp.off(2);
                         }else{
-                            //desligar lampada 3
+                            iLamp.off(3);
                         }
                     }
                 }
@@ -120,6 +135,7 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
         overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("Resources", "VALOR OOO: " + position);
                 PopupMenu popupMenu = new PopupMenu(context, v);
                 popupMenu.setOnMenuItemClickListener(OnOffListAdapter.this);
                 popupMenu.inflate(R.menu.popup_menu);
@@ -148,9 +164,15 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.overflow_intensity:
-                context.startActivity(new Intent(context, DialogSliderActivity.class));
+                Intent intent = new Intent(context, DialogSliderActivity.class);
+                Bundle params = new Bundle();
+                params.putString("position",      String.valueOf(position));
+                intent.putExtras(params);
+
+                context.startActivity(intent);
                 return true;
 
             case R.id.overflow_color:

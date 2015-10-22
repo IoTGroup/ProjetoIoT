@@ -8,11 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import automa.great.ufc.br.automagreat.R;
 import automa.great.ufc.br.automagreat.context.ContextKeys;
+import automa.great.ufc.br.automagreat.interfaces.ILamp;
 import automa.great.ufc.br.automagreat.view.layout.SlidingTabLayout;
 import automa.great.ufc.br.automagreat.view.adapter.ViewPagerAdapter;
 import br.ufc.great.loccamlib.LoccamListener;
@@ -20,7 +20,7 @@ import br.ufc.great.loccamlib.LoccamManager;
 import br.ufc.great.syssu.base.Tuple;
 import br.ufc.great.syssu.base.interfaces.ISysSUService;
 
-public class TabsActivity extends ActionBarActivity implements LoccamListener{
+public class TabsActivity extends ActionBarActivity implements LoccamListener, ILamp {
     private Toolbar toolbar;
     private ViewPager pager;
     private ViewPagerAdapter adapter;
@@ -107,7 +107,7 @@ public class TabsActivity extends ActionBarActivity implements LoccamListener{
 
     @Override
     public void onLoccamException(Exception e) {
-        Log.d("Automa","Erro: "+e.toString());
+        Log.d("Automa", "Erro: " + e.toString());
     }
 
 
@@ -118,11 +118,6 @@ public class TabsActivity extends ActionBarActivity implements LoccamListener{
 
     }
 
-    public void turnOn(View view) {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("State", "on");
-        loccam.setASync(tuple);
-        Log.d("Automa","Ligando");
-    }
 
     public void turnOn() {
         Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("State", "on");
@@ -148,5 +143,24 @@ public class TabsActivity extends ActionBarActivity implements LoccamListener{
         Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("Light", lampId);
         loccam.setASync(tuple);
     }
+
+    @Override
+    public void on(int id) {
+        connect(String.valueOf(id));
+        turnOn();
+    }
+
+    @Override
+    public void off(int id) {
+        connect(String.valueOf(id));
+        turnOff();
+    }
+
+    @Override
+    public void setIntensity(String id ,String vInts) {
+        connect(id);
+        setBright(vInts);
+    }
+
 
 }

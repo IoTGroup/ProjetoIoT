@@ -9,4 +9,6 @@
     <string name="refresh">Refresh</string>
     <string name="set_intensity">Set intensity</string>
     <string name="set_color">Set color</string>
+    <string name="textOff">off</string>
+    <string name="textOn">on</string>
 </resources>

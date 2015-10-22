@@ -7,16 +7,22 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.os.Bundle;
 import automa.great.ufc.br.automagreat.R;
+import automa.great.ufc.br.automagreat.interfaces.ILamp;
 
 public class DialogSliderActivity extends Activity {
 
     private SeekBar seekBar;
     private TextView textView;
+    private ILamp iLamp;
+    private String position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_slider);
+
+        Bundle params = getIntent().getExtras();
+        position = params.getString("position");
 
         seekBar = (SeekBar) findViewById(R.id.seekBar1);
         textView = (TextView) findViewById(R.id.textView1);
@@ -31,6 +37,7 @@ public class DialogSliderActivity extends Activity {
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
                 progress = progresValue;
                 //Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+                iLamp.setIntensity(position, String.valueOf(progress));
                 Log.i("Resource", "Mudança em progresso 000...");
             }
 

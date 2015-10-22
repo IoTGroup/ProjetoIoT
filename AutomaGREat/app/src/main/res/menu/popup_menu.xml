@@ -3,8 +3,10 @@
 
     <item
         android:id="@+id/overflow_intensity"
-        android:title="@string/set_intensity" />
+        android:title="@string/set_intensity"
+        android:src="@mipmap/ic_brightness"/>
     <item
         android:id="@+id/overflow_color"
-        android:title="@string/set_color" />
+        android:title="@string/set_color"
+        android:src="@mipmap/ic_palette"/>
 </menu>
