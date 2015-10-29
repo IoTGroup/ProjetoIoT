@@ -11,24 +11,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import automa.great.ufc.br.automagreat.R;
-import automa.great.ufc.br.automagreat.context.ContextKeys;
-import automa.great.ufc.br.automagreat.interfaces.ILamp;
+import automa.great.ufc.br.automagreat.view.adapter.TabPagerAdapter;
 import automa.great.ufc.br.automagreat.view.layout.SlidingTabLayout;
-import automa.great.ufc.br.automagreat.view.adapter.ViewPagerAdapter;
-import br.ufc.great.loccamlib.LoccamListener;
-import br.ufc.great.loccamlib.LoccamManager;
-import br.ufc.great.syssu.base.Tuple;
-import br.ufc.great.syssu.base.interfaces.ISysSUService;
 
-public class TabsActivity extends ActionBarActivity implements LoccamListener, ILamp {
+
+public class TabsActivity extends ActionBarActivity {
     private Toolbar toolbar;
     private ViewPager pager;
-    private ViewPagerAdapter adapter;
+    private TabPagerAdapter adapter;
     private SlidingTabLayout tabs;
     private CharSequence Titles[]={"Lamps","Air Conditioning"};
     private int Numboftabs =2;
-
-    private LoccamManager loccam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +31,7 @@ public class TabsActivity extends ActionBarActivity implements LoccamListener, I
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.DKGRAY);
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+        adapter =  new TabPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
 
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
@@ -56,11 +49,6 @@ public class TabsActivity extends ActionBarActivity implements LoccamListener, I
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
-
-        loccam = new LoccamManager(this, "automagreat");
-        loccam.connect(this);
-
-
 
     }
 
@@ -90,77 +78,7 @@ public class TabsActivity extends ActionBarActivity implements LoccamListener, I
     }
 
     @Override
-    public void onServiceConnected(ISysSUService iSysSUService) {
-
-        loccam.init(ContextKeys.HUE_LIGHT);
-        Log.d("Automa","onServiceConnected aeeee");
-
-    }
-
-    @Override
-    public void onServiceDisconnected() {
-
-        loccam.finishAll();
-        Log.d("Automa","onServiceDisconnected");
-
-    }
-
-    @Override
-    public void onLoccamException(Exception e) {
-        Log.d("Automa", "Erro: " + e.toString());
-    }
-
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        loccam.disconnect();
-
     }
-
-
-    public void turnOn() {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("State", "on");
-        loccam.setASync(tuple);
-    }
-
-    public void turnOff() {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("State", "off");
-        loccam.setASync(tuple);
-    }
-
-    public void setColor(String color) {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("Color", color);
-        loccam.setASync(tuple);
-    }
-
-    public void setBright(String bright) {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("Brightness", bright);
-        loccam.setASync(tuple);
-    }
-
-    public void connect(String lampId) {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("Light", lampId);
-        loccam.setASync(tuple);
-    }
-
-    @Override
-    public void on(int id) {
-        connect(String.valueOf(id));
-        turnOn();
-    }
-
-    @Override
-    public void off(int id) {
-        connect(String.valueOf(id));
-        turnOff();
-    }
-
-    @Override
-    public void setIntensity(String id ,String vInts) {
-        connect(id);
-        setBright(vInts);
-    }
-
-
 }

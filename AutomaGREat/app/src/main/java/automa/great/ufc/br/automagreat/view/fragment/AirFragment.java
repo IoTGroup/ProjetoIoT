@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,15 @@ import android.widget.Switch;
 
 import java.util.ArrayList;
 
-import automa.great.ufc.br.automagreat.view.adapter.OnOffListAdapter;
+import automa.great.ufc.br.automagreat.listeners.ContextListener;
+import automa.great.ufc.br.automagreat.view.adapter.FieldListAdapter;
 import automa.great.ufc.br.automagreat.R;
 import automa.great.ufc.br.automagreat.model.Resource;
 
 /**
  * Created by Thae on 05/10/2015.
  */
-public class AirFragment extends Fragment {
+public class AirFragment extends Fragment implements ContextListener {
     private Context context;
     private ListView lv_air;
     private Switch switch_air;
@@ -43,7 +43,7 @@ public class AirFragment extends Fragment {
         
         lv_air = (ListView) v.findViewById(R.id.lv_air);
 
-        lv_air.setAdapter(new OnOffListAdapter(context, resources));
+        lv_air.setAdapter(new FieldListAdapter(context, resources));
 
         lv_air.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,6 +51,25 @@ public class AirFragment extends Fragment {
                 //
             }
         });
+
+        //ContextManager.getInstance().registerListener(this);
+
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        //ContextManager.getInstance().unregisterListener(this);
+    }
+
+    @Override
+    public void onContextReady(String data) {
+
+    }
+
+    @Override
+    public String getContextKey() {
+        return null;
     }
 }

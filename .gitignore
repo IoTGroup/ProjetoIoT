@@ -25,3 +25,6 @@ proguard/
 
 # Log Files
 *.log
+
+# Libs
+AutomaGREat/app/libs/loccam_api.jar

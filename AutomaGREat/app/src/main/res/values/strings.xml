@@ -11,4 +11,6 @@
     <string name="set_color">Set color</string>
     <string name="textOff">off</string>
     <string name="textOn">on</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="pin">1</string>
 </resources>

@@ -10,14 +10,16 @@ import automa.great.ufc.br.automagreat.view.fragment.LampFragment;
 /**
  * Created by Thae on 05/10/2015.
  */
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
-    CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
-    int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
+    CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when TabPagerAdapter is created
+    int NumbOfTabs; // Store the number of tabs, this will also be passed when the TabPagerAdapter is created
+    public LampFragment lampFragment;
+    public AirFragment airFragment;
 
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
-    public ViewPagerAdapter(FragmentManager fm,CharSequence mTitles[], int mNumbOfTabsumb) {
+    public TabPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb) {
         super(fm);
 
         this.Titles = mTitles;
@@ -31,13 +33,13 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         if(position == 0) // if the position is 0 we are returning the First tab
         {
-            LampFragment lampFragment = new LampFragment();
+            lampFragment = new LampFragment();
             return lampFragment;
         }
         else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            AirFragment tab2 = new AirFragment();
-            return tab2;
+            airFragment = new AirFragment();
+            return airFragment;
         }
 
     }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,23 +25,27 @@ import java.util.List;
 import automa.great.ufc.br.automagreat.R;
 import automa.great.ufc.br.automagreat.model.Resource;
 import automa.great.ufc.br.automagreat.view.activity.DialogSliderActivity;
-import automa.great.ufc.br.automagreat.interfaces.ILamp;
+import automa.great.ufc.br.automagreat.view.fragment.LampFragment;
 
 /**
  * Created by Thae on 05/10/2015.
  */
-public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickListener {
-    private Context context;
+public class FieldListAdapter extends BaseAdapter implements OnMenuItemClickListener {
+    private Context activity;
     private List<Resource> resources;
     private List<Switch> listSwitches;
-    private ILamp iLamp;
-    Activity activity;
     private int position;
+    private LampFragment fragment;
 
-    public OnOffListAdapter (Context context, ArrayList<Resource> resources) {
-        this.context = context;
+    public FieldListAdapter(Context context, ArrayList<Resource> resources) {
+        this.activity = context;
         this.resources = resources;
         listSwitches = new ArrayList<Switch>();
+    }
+
+    public FieldListAdapter(Fragment fragment, Context activity, ArrayList<Resource> resources) {
+        this(activity, resources);
+        this.fragment = (LampFragment) fragment;
     }
 
     @Override
@@ -66,7 +71,7 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
         this.position = position;
 
         if (convertView == null) {
-            LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.item_onoff, null);
         }
 
@@ -74,9 +79,6 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
         ImageView icon = (ImageView) convertView.findViewById(R.id.iv_icon);
         TextView name = (TextView) convertView.findViewById(R.id.tv_object_name);
         TextView description = (TextView) convertView.findViewById(R.id.tv_description);
-
-        activity = (Activity) context;
-        iLamp = (ILamp) activity;
 
         Switch onoff = (Switch) convertView.findViewById(R.id.switch_onoff_list);
         listSwitches.add(onoff);
@@ -92,39 +94,40 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
                             iterator.next().setChecked(true);
 
                         }
-                        iLamp.on(1);
-                        iLamp.on(2);
-                        iLamp.on(3);
+
+                        fragment.on(1);
+                        fragment.on(2);
+                        fragment.on(3);
                     } else {
                         Iterator<Switch> iterator = listSwitches.iterator();
                         while (iterator.hasNext()) {
                             iterator.next().setChecked(false);
                             //desligar as lampadas
                         }
-                        iLamp.off(1);
-                        iLamp.off(2);
-                        iLamp.off(3);
+                        fragment.off(1);
+                        fragment.off(2);
+                        fragment.off(3);
                     }
                 } else {
 
-                    if(isChecked){
+                    if (isChecked) {
 
-                        if(position == 1){
-                            iLamp.on(1);
-                        }else if(position == 2){
-                            iLamp.on(2);
-                        }else{
-                            iLamp.on(3);
+                        if (position == 1) {
+                            fragment.on(1);
+                        } else if (position == 2) {
+                            fragment.on(2);
+                        } else {
+                            fragment.on(3);
                         }
 
-                    }else{
+                    } else {
 
-                        if(position == 1){
-                            iLamp.off(1);
-                        }else if(position == 2){
-                            iLamp.off(2);
-                        }else{
-                            iLamp.off(3);
+                        if (position == 1) {
+                            fragment.off(1);
+                        } else if (position == 2) {
+                            fragment.off(2);
+                        } else {
+                            fragment.off(3);
                         }
                     }
                 }
@@ -136,8 +139,8 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
             @Override
             public void onClick(View v) {
                 Log.i("Resources", "VALOR OOO: " + position);
-                PopupMenu popupMenu = new PopupMenu(context, v);
-                popupMenu.setOnMenuItemClickListener(OnOffListAdapter.this);
+                PopupMenu popupMenu = new PopupMenu(activity, v);
+                popupMenu.setOnMenuItemClickListener(FieldListAdapter.this);
                 popupMenu.inflate(R.menu.popup_menu);
                 popupMenu.show();
             }
@@ -146,16 +149,16 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
         name.setText(r.getName());
 
         if (r.getType() == Resource.AIR) {
-            icon.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_air));
-        }else if (r.getType() == Resource.LAMP) {
-            icon.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_lamp));
+            icon.setImageDrawable(activity.getResources().getDrawable(R.mipmap.ic_air));
+        } else if (r.getType() == Resource.LAMP) {
+            icon.setImageDrawable(activity.getResources().getDrawable(R.mipmap.ic_lamp));
         }
 
         onoff.setChecked(r.getStatus());
 
         try {
             description.setText(r.getDescription());
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.i("OnOffAdapter", "no description");
         }
 
@@ -167,12 +170,12 @@ public class OnOffListAdapter extends BaseAdapter implements OnMenuItemClickList
 
         switch (item.getItemId()) {
             case R.id.overflow_intensity:
-                Intent intent = new Intent(context, DialogSliderActivity.class);
+                Intent intent = new Intent(activity, DialogSliderActivity.class);
                 Bundle params = new Bundle();
-                params.putString("position",      String.valueOf(position));
+                params.putString("position", String.valueOf(position));
                 intent.putExtras(params);
 
-                context.startActivity(intent);
+                activity.startActivity(intent);
                 return true;
 
             case R.id.overflow_color:

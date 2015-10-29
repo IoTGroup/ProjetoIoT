@@ -24,7 +24,7 @@ public class PinActivity extends AppCompatActivity {
 
                 String pin = edPin.getText().toString();
 
-                if(pin.equals("123456")){
+                if(pin.equals(getResources().getString(R.string.pin))){
                     startActivity(new Intent(PinActivity.this, TabsActivity.class));
                 } else if (pin.equals("")){
                     edPin.setError(getString(R.string.error_empty_pin));
