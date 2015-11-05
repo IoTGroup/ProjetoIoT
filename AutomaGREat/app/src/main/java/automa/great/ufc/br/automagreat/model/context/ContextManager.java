@@ -113,6 +113,7 @@ public class ContextManager implements LoccamListener {
     }
 
     public void sendCommand(Tuple tuple) {
+        
         loccamManager.setASync(tuple);
     }
 

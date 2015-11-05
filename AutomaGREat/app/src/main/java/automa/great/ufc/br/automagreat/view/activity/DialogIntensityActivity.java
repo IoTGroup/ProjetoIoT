@@ -40,7 +40,13 @@ public class DialogIntensityActivity extends Activity  implements ContextListene
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {;
-                Lights.setIntensity(position, String.valueOf(progressValue));
+
+                if(position == 0){
+                    Lights.setIntensity(1, String.valueOf(progressValue));
+                    Lights.setIntensity(2, String.valueOf(progressValue));
+                    Lights.setIntensity(3, String.valueOf(progressValue));
+                }else
+                    Lights.setIntensity(position, String.valueOf(progressValue));
                 Log.d(Config.TAG, "SeekBar: onProgressChanged");
             }
 

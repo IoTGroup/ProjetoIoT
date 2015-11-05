@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import automa.great.ufc.br.automagreat.view.activity.DialogColorActivity;
 import automa.great.ufc.br.automagreat.R;
 import automa.great.ufc.br.automagreat.model.control.Airs;
 import automa.great.ufc.br.automagreat.model.control.Lights;
@@ -31,7 +33,7 @@ import automa.great.ufc.br.automagreat.view.activity.DialogIntensityActivity;
 /**
  * Created by Thae on 05/10/2015.
  */
-public class FieldListAdapter extends BaseAdapter implements OnMenuItemClickListener {
+public class FieldListAdapter extends BaseAdapter {
     private Context activity;
     private List<Resource> resources;
     private List<Switch> listSwitches;
@@ -116,31 +118,50 @@ public class FieldListAdapter extends BaseAdapter implements OnMenuItemClickList
                         }
                     } else {
 
-                        if (isChecked) {
-                            if (position == 1)
-                                Lights.on(1);
-                            else if (position == 2)
-                                Lights.on(2);
-                            else
-                                Lights.on(3);
-
-
-                        } else {
+                        if (isChecked)
+                            Lights.on(position);
+                        else
                             Lights.off(position);
-
-                        }
                     }
                 }
             }
         });
 
         View overflow = convertView.findViewById(R.id.menu_overflow);
+        overflow.setTag(position);
         overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Resources", "VALOR OOO: " + position);
+
+                final int pos = (Integer) v.getTag();
+
                 PopupMenu popupMenu = new PopupMenu(activity, v);
-                popupMenu.setOnMenuItemClickListener(FieldListAdapter.this);
+                popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+                            case R.id.overflow_intensity:
+                                Intent intent = new Intent(activity, DialogIntensityActivity.class);
+                                Bundle params = new Bundle();
+                                params.putInt("position", pos);
+                                intent.putExtras(params);
+
+                                activity.startActivity(intent);
+                                return true;
+
+                            case R.id.overflow_color:
+                                Intent intent2 = new Intent(activity, DialogColorActivity.class);
+                                Bundle params2 = new Bundle();
+                                params2.putInt("position", pos);
+                                intent2.putExtras(params2);
+
+                                activity.startActivity(intent2);
+                                return true;
+                        }
+                        return true;
+                    }
+                });
                 popupMenu.inflate(R.menu.popup_menu);
                 popupMenu.show();
             }
@@ -165,23 +186,4 @@ public class FieldListAdapter extends BaseAdapter implements OnMenuItemClickList
         return convertView;
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.overflow_intensity:
-                Intent intent = new Intent(activity, DialogIntensityActivity.class);
-                Bundle params = new Bundle();
-                params.putString("position", String.valueOf(position));
-                intent.putExtras(params);
-
-                activity.startActivity(intent);
-                return true;
-
-            case R.id.overflow_color:
-                Log.i("Resource", "TESTANDO COR...");
-                return true;
-        }
-        return true;
-    }
 }
