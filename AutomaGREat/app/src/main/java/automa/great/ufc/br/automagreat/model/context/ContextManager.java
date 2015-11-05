@@ -1,4 +1,4 @@
-package automa.great.ufc.br.automagreat.context;
+package automa.great.ufc.br.automagreat.model.context;
 
 import android.content.Context;
 import android.os.RemoteException;
@@ -6,8 +6,8 @@ import android.util.Log;
 
 import java.util.HashMap;
 
-import automa.great.ufc.br.automagreat.listeners.ContextListener;
-import automa.great.ufc.br.automagreat.listeners.LoccamConnectedListener;
+import automa.great.ufc.br.automagreat.model.listeners.ContextListener;
+import automa.great.ufc.br.automagreat.model.listeners.LoccamConnectedListener;
 import br.ufc.great.loccamlib.LoccamListener;
 import br.ufc.great.loccamlib.LoccamManager;
 import br.ufc.great.syssu.base.Tuple;

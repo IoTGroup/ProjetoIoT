@@ -1,4 +1,4 @@
-package automa.great.ufc.br.automagreat.model;
+package automa.great.ufc.br.automagreat.model.control;
 
 import android.util.Log;
 

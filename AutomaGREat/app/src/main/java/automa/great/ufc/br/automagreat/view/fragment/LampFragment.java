@@ -11,18 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Switch;
 
 import java.util.ArrayList;
 
-import automa.great.ufc.br.automagreat.context.ContextKeys;
-import automa.great.ufc.br.automagreat.context.ContextManager;
-import automa.great.ufc.br.automagreat.listeners.ContextListener;
-import automa.great.ufc.br.automagreat.view.activity.DialogSliderActivity;
+import automa.great.ufc.br.automagreat.util.Config;
+import automa.great.ufc.br.automagreat.model.context.ContextKeys;
+import automa.great.ufc.br.automagreat.model.context.ContextManager;
+import automa.great.ufc.br.automagreat.model.listeners.ContextListener;
+import automa.great.ufc.br.automagreat.view.activity.DialogIntensityActivity;
 import automa.great.ufc.br.automagreat.view.adapter.FieldListAdapter;
 import automa.great.ufc.br.automagreat.R;
-import automa.great.ufc.br.automagreat.model.Resource;
-import br.ufc.great.syssu.base.Tuple;
+import automa.great.ufc.br.automagreat.model.control.Resource;
 
 /**
  * Created by Thae on 05/10/2015.
@@ -30,7 +29,6 @@ import br.ufc.great.syssu.base.Tuple;
 public class LampFragment extends Fragment implements ContextListener {
     private Context context;
     private ListView lv_lamp;
-    private Switch switch_lamp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,20 +51,19 @@ public class LampFragment extends Fragment implements ContextListener {
 
         lv_lamp = (ListView) v.findViewById(R.id.lv_lamp);
 
-        //FieldListAdapter adapter = new FieldListAdapter(context, resources);
-        FieldListAdapter adapter = new FieldListAdapter(this, context, resources);
+        FieldListAdapter adapter = new FieldListAdapter(context, resources, Config.type_lights);
 
         lv_lamp.setAdapter(adapter);
-        //lv_lamp.setItemsCanFocus(false);
 
         lv_lamp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                startActivity(new Intent(getActivity(), DialogSliderActivity.class));
+                startActivity(new Intent(getActivity(), DialogIntensityActivity.class));
             }
         });
 
+        // registra este ContextListener no ContextManager do Loccam
         ContextManager.getInstance().registerListener(this);
 
         return v;
@@ -81,7 +78,7 @@ public class LampFragment extends Fragment implements ContextListener {
 
     @Override
     public void onContextReady(String data) {
-        Log.d("Automa", "Lampadas prontas");
+        Log.d(Config.TAG, "Lampadas prontas");
 
     }
 
@@ -90,43 +87,4 @@ public class LampFragment extends Fragment implements ContextListener {
         return ContextKeys.HUE_LIGHT;
     }
 
-    private void turnOn() {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("State", "on");
-        ContextManager.getInstance().sendCommand(tuple);
-    }
-
-    private void turnOff() {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("State", "off");
-        ContextManager.getInstance().sendCommand(tuple);
-    }
-
-    private void setBright(String bright) {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("Brightness", bright);
-        ContextManager.getInstance().sendCommand(tuple);
-    }
-
-    private void connect(String lampId) {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("Light", lampId);
-        ContextManager.getInstance().sendCommand(tuple);
-    }
-
-    public void on(int id) {
-        connect(String.valueOf(id));
-        turnOn();
-    }
-
-    public void off(int id) {
-        connect(String.valueOf(id));
-        turnOff();
-    }
-
-    private void setColor(String color) {
-        Tuple tuple = (Tuple) new Tuple().addField("ControlKey", ContextKeys.HUE_LIGHT).addField("Color", color);
-        ContextManager.getInstance().sendCommand(tuple);
-    }
-
-    public void setIntensity(String id ,String vInts) {
-        connect(id);
-        setBright(vInts);
-    }
 }

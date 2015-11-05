@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,13 @@ import android.widget.Switch;
 
 import java.util.ArrayList;
 
-import automa.great.ufc.br.automagreat.listeners.ContextListener;
+import automa.great.ufc.br.automagreat.util.Config;
+import automa.great.ufc.br.automagreat.model.context.ContextKeys;
+import automa.great.ufc.br.automagreat.model.context.ContextManager;
+import automa.great.ufc.br.automagreat.model.listeners.ContextListener;
 import automa.great.ufc.br.automagreat.view.adapter.FieldListAdapter;
 import automa.great.ufc.br.automagreat.R;
-import automa.great.ufc.br.automagreat.model.Resource;
+import automa.great.ufc.br.automagreat.model.control.Resource;
 
 /**
  * Created by Thae on 05/10/2015.
@@ -43,7 +47,7 @@ public class AirFragment extends Fragment implements ContextListener {
         
         lv_air = (ListView) v.findViewById(R.id.lv_air);
 
-        lv_air.setAdapter(new FieldListAdapter(context, resources));
+        lv_air.setAdapter(new FieldListAdapter(context, resources,Config.type_airs));
 
         lv_air.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -52,7 +56,8 @@ public class AirFragment extends Fragment implements ContextListener {
             }
         });
 
-        //ContextManager.getInstance().registerListener(this);
+        // registra este ContextListener no ContextManager do Loccam
+        ContextManager.getInstance().registerListener(this);
 
         return v;
     }
@@ -60,16 +65,17 @@ public class AirFragment extends Fragment implements ContextListener {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //ContextManager.getInstance().unregisterListener(this);
+        ContextManager.getInstance().unregisterListener(this);
     }
 
     @Override
     public void onContextReady(String data) {
+        Log.d(Config.TAG, "Ar-condicionado prontas");
 
     }
 
     @Override
     public String getContextKey() {
-        return null;
+        return ContextKeys.CONTROL_AC;
     }
 }

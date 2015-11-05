@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,9 +22,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import automa.great.ufc.br.automagreat.R;
-import automa.great.ufc.br.automagreat.model.Resource;
-import automa.great.ufc.br.automagreat.view.activity.DialogSliderActivity;
-import automa.great.ufc.br.automagreat.view.fragment.LampFragment;
+import automa.great.ufc.br.automagreat.model.control.Airs;
+import automa.great.ufc.br.automagreat.model.control.Lights;
+import automa.great.ufc.br.automagreat.model.control.Resource;
+import automa.great.ufc.br.automagreat.util.Config;
+import automa.great.ufc.br.automagreat.view.activity.DialogIntensityActivity;
 
 /**
  * Created by Thae on 05/10/2015.
@@ -35,17 +36,14 @@ public class FieldListAdapter extends BaseAdapter implements OnMenuItemClickList
     private List<Resource> resources;
     private List<Switch> listSwitches;
     private int position;
-    private LampFragment fragment;
+    private String type;
 
-    public FieldListAdapter(Context context, ArrayList<Resource> resources) {
+
+    public FieldListAdapter(Context context, ArrayList<Resource> resources, String type) {
         this.activity = context;
         this.resources = resources;
+        this.type = type;
         listSwitches = new ArrayList<Switch>();
-    }
-
-    public FieldListAdapter(Fragment fragment, Context activity, ArrayList<Resource> resources) {
-        this(activity, resources);
-        this.fragment = (LampFragment) fragment;
     }
 
     @Override
@@ -70,6 +68,7 @@ public class FieldListAdapter extends BaseAdapter implements OnMenuItemClickList
 
         this.position = position;
 
+
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.item_onoff, null);
@@ -87,47 +86,48 @@ public class FieldListAdapter extends BaseAdapter implements OnMenuItemClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // Guardar os status dos objetos
-                if (position == 0) {
-                    if (isChecked) {
-                        Iterator<Switch> iterator = listSwitches.iterator();
-                        while (iterator.hasNext()) {
-                            iterator.next().setChecked(true);
 
-                        }
 
-                        fragment.on(1);
-                        fragment.on(2);
-                        fragment.on(3);
-                    } else {
-                        Iterator<Switch> iterator = listSwitches.iterator();
-                        while (iterator.hasNext()) {
-                            iterator.next().setChecked(false);
-                            //desligar as lampadas
-                        }
-                        fragment.off(1);
-                        fragment.off(2);
-                        fragment.off(3);
-                    }
+                if (type.equals(Config.type_airs)) {
+                    Airs.onOff();
+                    Log.d(Config.TAG,"Air onOff");
                 } else {
+                    // Para o tipo Light
 
-                    if (isChecked) {
+                    if (position == 0) {
+                        if (isChecked) {
+                            Iterator<Switch> iterator = listSwitches.iterator();
+                            while (iterator.hasNext()) {
+                                iterator.next().setChecked(true);
+                            }
 
-                        if (position == 1) {
-                            fragment.on(1);
-                        } else if (position == 2) {
-                            fragment.on(2);
+                            Lights.on(1);
+                            Lights.on(2);
+                            Lights.on(3);
+
                         } else {
-                            fragment.on(3);
+                            Iterator<Switch> iterator = listSwitches.iterator();
+                            while (iterator.hasNext()) {
+                                iterator.next().setChecked(false);
+                            }
+                            Lights.off(1);
+                            Lights.off(2);
+                            Lights.off(3);
                         }
-
                     } else {
 
-                        if (position == 1) {
-                            fragment.off(1);
-                        } else if (position == 2) {
-                            fragment.off(2);
+                        if (isChecked) {
+                            if (position == 1)
+                                Lights.on(1);
+                            else if (position == 2)
+                                Lights.on(2);
+                            else
+                                Lights.on(3);
+
+
                         } else {
-                            fragment.off(3);
+                            Lights.off(position);
+
                         }
                     }
                 }
@@ -170,7 +170,7 @@ public class FieldListAdapter extends BaseAdapter implements OnMenuItemClickList
 
         switch (item.getItemId()) {
             case R.id.overflow_intensity:
-                Intent intent = new Intent(activity, DialogSliderActivity.class);
+                Intent intent = new Intent(activity, DialogIntensityActivity.class);
                 Bundle params = new Bundle();
                 params.putString("position", String.valueOf(position));
                 intent.putExtras(params);

@@ -20,7 +20,7 @@ public class TabsActivity extends ActionBarActivity {
     private ViewPager pager;
     private TabPagerAdapter adapter;
     private SlidingTabLayout tabs;
-    private CharSequence Titles[]={"Lamps","Air Conditioning"};
+    private CharSequence Titles[]={"Lamps","Airs Conditioning"};
     private int Numboftabs =2;
 
     @Override

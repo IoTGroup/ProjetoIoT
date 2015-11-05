@@ -8,10 +8,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import automa.great.ufc.br.automagreat.R;
-import automa.great.ufc.br.automagreat.context.ContextKeys;
-import automa.great.ufc.br.automagreat.context.ContextManager;
-import automa.great.ufc.br.automagreat.listeners.ContextListener;
-import automa.great.ufc.br.automagreat.listeners.LoccamConnectedListener;
+import automa.great.ufc.br.automagreat.model.context.ContextKeys;
+import automa.great.ufc.br.automagreat.model.context.ContextManager;
+import automa.great.ufc.br.automagreat.model.listeners.ContextListener;
+import automa.great.ufc.br.automagreat.model.listeners.LoccamConnectedListener;
 
 public class SplashActivity extends AppCompatActivity implements ContextListener {
 

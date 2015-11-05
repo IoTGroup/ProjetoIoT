@@ -1,4 +1,4 @@
-package automa.great.ufc.br.automagreat.listeners;
+package automa.great.ufc.br.automagreat.model.listeners;
 
 public interface ContextListener{
 
