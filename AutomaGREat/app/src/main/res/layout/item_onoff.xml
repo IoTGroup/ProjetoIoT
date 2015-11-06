@@ -55,5 +55,4 @@
             android:src="@mipmap/ic_dots_vertical" />
 
     </RelativeLayout>
-
 </RelativeLayout>

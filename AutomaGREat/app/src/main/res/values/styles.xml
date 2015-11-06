@@ -1,5 +1,11 @@
 <resources>
 
+    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/logo_blue</item>
+        <item name="colorControlActivated">@color/logo_blue</item>
+        <item name="colorControlHighlight">@color/logo_blue</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
@@ -11,14 +17,12 @@
     </style>
 
     <!-- ActionBar styles -->
-    <style name="MyActionBar"
-        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
         <item name="titleTextStyle">@style/MyActionBarTitleText</item>
     </style>
 
-    <style name="MyActionBarTitleText"
-        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="MyActionBarTitleText"  parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/background_dark</item>
     </style>
     <style name="AppTheme.NoActionBar">

@@ -22,49 +22,99 @@ public class DialogColorActivity extends Activity implements View.OnClickListene
         Bundle params = getIntent().getExtras();
         position = params.getInt("position");
 
-        Button bRed = (Button) findViewById(R.id.button1);
+        Button bRed = (Button) findViewById(R.id.bColorRed);
         bRed.setBackgroundColor(Color.RED);
         bRed.setOnClickListener(this);
-        Button bGreen = (Button)findViewById(R.id.button2);
+
+        Button bGreen = (Button)findViewById(R.id.bColorGreen);
         bGreen.setBackgroundColor(Color.GREEN);
         bGreen.setOnClickListener(this);
-        Button bBlue = (Button)findViewById(R.id.button3);
+
+        Button bBlue = (Button)findViewById(R.id.bColorBlue);
         bBlue.setBackgroundColor(Color.BLUE);
         bBlue.setOnClickListener(this);
-        Button bYellow = (Button) findViewById(R.id.button4);
+
+        Button bYellow = (Button) findViewById(R.id.bColorYellow);
         bYellow.setBackgroundColor(Color.YELLOW);
         bYellow.setOnClickListener(this);
 
-        Button bMagenta = (Button) findViewById(R.id.button5);
+        Button bMagenta = (Button) findViewById(R.id.bColorMagenta);
         bMagenta.setBackgroundColor(Color.MAGENTA);
         bMagenta.setOnClickListener(this);
 
-        Button bWhite = (Button) findViewById(R.id.button6);
+        Button bWhite = (Button) findViewById(R.id.bColorWhite);
         bWhite.setBackgroundColor(Color.WHITE);
         bWhite.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        final int id = v.getId();
-        switch (id) {
-            case R.id.button1:
-                Lights.color(position, Color.RED);
+
+        switch (v.getId()) {
+            case R.id.bColorRed:
+
+                if(position == 0){
+                    Lights.color(1, Color.RED);
+                    Lights.color(2, Color.RED);
+                    Lights.color(3, Color.RED);
+                }else{
+                    Lights.color(position, Color.RED);
+                }
+
                 break;
-            case R.id.button2:
-                Lights.color(position, Color.GREEN);
+            case R.id.bColorGreen:
+
+                if(position == 0){
+                    Lights.color(1, Color.GREEN);
+                    Lights.color(2, Color.GREEN);
+                    Lights.color(3, Color.GREEN);
+                }else{
+                    Lights.color(position, Color.GREEN);
+                }
+
                 break;
-            case R.id.button3:
-                Lights.color(position, Color.BLUE);
+            case R.id.bColorBlue:
+
+                if(position == 0){
+                    Lights.color(1, Color.BLUE);
+                    Lights.color(2, Color.BLUE);
+                    Lights.color(3, Color.BLUE);
+                }else{
+                    Lights.color(position, Color.BLUE);
+                }
+
                 break;
-            case R.id.button4:
-                Lights.color(position, Color.YELLOW);
+            case R.id.bColorYellow:
+
+                if(position == 0){
+                    Lights.color(1, Color.YELLOW);
+                    Lights.color(2, Color.YELLOW);
+                    Lights.color(3, Color.YELLOW);
+                }else{
+                    Lights.color(position, Color.YELLOW);
+                }
+
                 break;
-            case R.id.button5:
-                Lights.color(position, Color.MAGENTA);
+            case R.id.bColorMagenta:
+
+                if(position == 0){
+                    Lights.color(1, Color.MAGENTA);
+                    Lights.color(2, Color.MAGENTA);
+                    Lights.color(3, Color.MAGENTA);
+                }else{
+                    Lights.color(position, Color.MAGENTA);
+                }
+
                 break;
-            case R.id.button6:
-                Lights.color(position, Color.WHITE);
+            case R.id.bColorWhite:
+
+                if(position == 0){
+                    Lights.color(1, Color.WHITE);
+                    Lights.color(2, Color.WHITE);
+                    Lights.color(3, Color.WHITE);
+                }else{
+                    Lights.color(position, Color.WHITE);
+                }
         }
     }
 }

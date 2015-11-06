@@ -22,7 +22,9 @@
         android:inputType="numberPassword"
         android:lines="1"
         android:singleLine="true"
-        android:maxLength="10"/>
+        android:maxLength="10" />
+
+    <!--style="@style/Theme.App.Base" -->
 
     <Button
         android:id="@+id/bt_pin"
@@ -31,6 +33,8 @@
         android:layout_gravity="right"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:text="OK" />
+        android:text="OK"
+        android:textColor="@color/colorPrimary"
+        android:background="@color/logo_blue"/>
 
 </LinearLayout>

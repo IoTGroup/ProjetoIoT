@@ -70,7 +70,6 @@ public class FieldListAdapter extends BaseAdapter {
 
         this.position = position;
 
-
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.item_onoff, null);
@@ -89,13 +88,11 @@ public class FieldListAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // Guardar os status dos objetos
 
-
                 if (type.equals(Config.type_airs)) {
                     Airs.onOff();
                     Log.d(Config.TAG,"Air onOff");
                 } else {
                     // Para o tipo Light
-
                     if (position == 0) {
                         if (isChecked) {
                             Iterator<Switch> iterator = listSwitches.iterator();
