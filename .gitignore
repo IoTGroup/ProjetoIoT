@@ -27,4 +27,10 @@ proguard/
 *.log
 
 # Libs
-AutomaGREat/app/libs/loccam_api.jar
+AutomaGREat/app/libs/
+
+# Project
+*/.idea/workspace.xml
+*/.idea/libraries
+.DS_Store
+/captures
