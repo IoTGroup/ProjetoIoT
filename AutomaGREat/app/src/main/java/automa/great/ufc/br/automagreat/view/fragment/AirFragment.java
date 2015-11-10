@@ -34,16 +34,15 @@ public class AirFragment extends Fragment implements ContextListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_air,container,false);
+        View v = inflater.inflate(R.layout.fragment_air, container, false);
 
         //Resource air0 = new Resource("All A/C", "", Resource.AIR);
         //Resource air1 = new Resource("Air1", "close to the door", Resource.AIR);
         //Resource air2 = new Resource("Air2", "far from the door", Resource.AIR);
 
 
+        // this.context = getActivity();
 
-       // this.context = getActivity();
-        
         //lv_air = (ListView) v.findViewById(R.id.lv_air);
 
         //lv_air.setAdapter(new FieldListAdapter(context, resources,Config.type_airs));
@@ -55,7 +54,7 @@ public class AirFragment extends Fragment implements ContextListener {
 //            }
 //        });
 
-        setTypeface();
+        setTypeface(v);
 
         // registra este ContextListener no ContextManager do Loccam
         ContextManager.getInstance().registerListener(this);
@@ -80,9 +79,9 @@ public class AirFragment extends Fragment implements ContextListener {
         return ContextKeys.CONTROL_AC;
     }
 
-    private void setTypeface(){
-       // TextView tx = (TextView)getView().findViewById(R.id.temperatureTV);
-       // Typeface custom_font = Typeface.createFromAsset(getContext().getAssets(), "fonts/LCDM2B__.TTF");
-       // tx.setTypeface(custom_font);
+    private void setTypeface(View v) {
+        TextView tx = (TextView) v.findViewById(R.id.temperatureTV);
+        Typeface custom_font = Typeface.createFromAsset(getContext().getAssets(), "fonts/LCDM2B__.TTF");
+        tx.setTypeface(custom_font);
     }
 }
