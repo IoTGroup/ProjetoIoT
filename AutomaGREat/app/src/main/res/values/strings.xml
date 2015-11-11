@@ -13,4 +13,9 @@
     <string name="textOn">on</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="pin">1</string>
+    <string name="temp_inicial">24</string>
+    <string name="celsius">°C</string>
+    <string name="no_temp">unavailable</string>
+    <string name="ok">OK</string>
+
 </resources>

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
     android:orientation="vertical"
+    android:layout_marginTop="50dp"
     android:padding="32dp">
 
     <ImageView
@@ -17,24 +17,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:hint="@string/enter_pin"
-        android:textColorHint="@color/colorPrimaryDark"
         android:imeOptions="actionDone"
         android:inputType="numberPassword"
         android:lines="1"
+        android:maxLength="10"
         android:singleLine="true"
-        android:maxLength="10" />
-
-    <!--style="@style/Theme.App.Base" -->
+        android:textColorHint="@color/colorPrimaryDark" />
 
     <Button
         android:id="@+id/bt_pin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_gravity="right"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:text="OK"
+        android:layout_margin="8dp"
+        android:background="@drawable/button_ok"
+        android:elevation="2dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/ok"
         android:textColor="@color/colorPrimary"
-        android:background="@color/logo_blue"/>
+        android:textSize="14dp" />
 
 </LinearLayout>

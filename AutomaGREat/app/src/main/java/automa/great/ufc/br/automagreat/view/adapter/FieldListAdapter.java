@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,21 +14,22 @@ import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import automa.great.ufc.br.automagreat.view.activity.DialogColorActivity;
 import automa.great.ufc.br.automagreat.R;
 import automa.great.ufc.br.automagreat.model.control.Airs;
 import automa.great.ufc.br.automagreat.model.control.Lights;
 import automa.great.ufc.br.automagreat.model.control.Resource;
 import automa.great.ufc.br.automagreat.util.Config;
+import automa.great.ufc.br.automagreat.view.activity.DialogColorActivity;
 import automa.great.ufc.br.automagreat.view.activity.DialogIntensityActivity;
+import automa.great.ufc.br.automagreat.view.fragment.AirFragment;
 
 /**
  * Created by Thae on 05/10/2015.
@@ -37,6 +39,7 @@ public class FieldListAdapter extends BaseAdapter {
     private List<Resource> resources;
     private List<Switch> listSwitches;
     private int position;
+    private AirFragment airFragment;
     private String type;
 
 
@@ -45,6 +48,12 @@ public class FieldListAdapter extends BaseAdapter {
         this.resources = resources;
         this.type = type;
         listSwitches = new ArrayList<Switch>();
+    }
+
+    public FieldListAdapter(Context context, ArrayList<Resource> resources, String type, Fragment fragment) {
+        this(context, resources, type);
+        this.airFragment = (AirFragment) fragment;
+
     }
 
     @Override
@@ -88,8 +97,16 @@ public class FieldListAdapter extends BaseAdapter {
                 // Guardar os status dos objetos
 
                 if (type.equals(Config.type_airs)) {
+                    Log.d(Config.TAG, "Airs onOff");
+                    if (Airs.isOn) {
+                        airFragment.setOffFragment();
+                        Log.d(Config.TAG, "off");
+                    } else {
+                        Log.d(Config.TAG, "on");
+                        airFragment.setOnFragment();
+                    }
                     Airs.onOff();
-                    Log.d(Config.TAG,"Air onOff");
+
                 } else {
                     // Para o tipo Light
                     if (position == 0) {

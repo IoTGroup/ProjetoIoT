@@ -7,5 +7,6 @@
     <color name="tabsScrollColor">#004D40</color>
 
     <color name="logo_blue">#1063AE</color>
+    <color name="logo_blue_dark">#0C4274</color>
     <color name="logo_yellow">#FBC141</color>
 </resources>

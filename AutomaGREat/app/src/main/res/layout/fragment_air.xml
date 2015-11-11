@@ -4,46 +4,78 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/onOffAirButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/button_on_off" />
+    <ListView
+        android:id="@+id/lv_air"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false" />
 
     <TextView
-        android:id="@+id/temperatureTV"
+        android:id="@+id/tv_unavailable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:fontFamily="fonts/LCDML__"
-        android:paddingTop="100dp"
-        android:text="22"
-        android:textAlignment="center"
-        android:textSize="100dp" />
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingTop="135dp"
+        android:text="@string/no_temp"
+        android:textSize="30sp"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/temperatureLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:paddingTop="100dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60sp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:src="@mipmap/thermometer" />
+
+        <TextView
+            android:id="@+id/temperatureTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/temp_inicial"
+            android:textSize="100sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/celsius"
+            android:textSize="40sp" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/temperatureTV"
+        android:layout_below="@id/temperatureLL"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:paddingTop="40dp">
-
-        <Button
-            android:id="@+id/upTempButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center" />
+        android:orientation="horizontal"
+        android:paddingTop="80sp">
 
         <Button
             android:id="@+id/downTempButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_gravity="center" />
+            android:layout_marginRight="70dp"
+            android:background="@drawable/button_down" />
+
+        <Button
+            android:id="@+id/upTempButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/button_up" />
+
+
     </LinearLayout>
 
 </RelativeLayout>
