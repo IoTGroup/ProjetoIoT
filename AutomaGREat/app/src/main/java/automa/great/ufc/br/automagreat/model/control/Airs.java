@@ -43,39 +43,36 @@ public class Airs {
     }
 
     static public String plus() {
-        Log.d(Config.TAG, "mButtonPlus isOn : " + isOn);
-
         String result = new String();
-
-        if (temperature == maxRange) {
-            countClick--;
-            if (countClick == 0) {
-                result = callToastTempMaxMin(temperature);
+        if (isOn == true) {
+            if (temperature == maxRange) {
+                countClick--;
+                if (countClick == 0) {
+                    result = callToastTempMaxMin(temperature);
+                }
+            } else {
+                temperature = temperature + 1;
             }
-        } else {
-            temperature = temperature + 1;
+            setCommands("temp:" + temperature);
         }
-        setCommands("temp:" + temperature);
-        isOn = true;
 
         return result;
     }
 
     static public String minus() {
-        Log.d(Config.TAG, "mButtonMinus isOn : " + isOn);
         String result = new String();
+        if (isOn == true) {
+            if (temperature == minRange) {
+                countClick--;
+                if (countClick == 0) {
+                    result = callToastTempMaxMin(temperature);
+                }
 
-        if (temperature == minRange) {
-            countClick--;
-            if (countClick == 0) {
-                result = callToastTempMaxMin(temperature);
+            } else {
+                temperature = temperature - 1;
             }
-
-        } else {
-            temperature = temperature - 1;
+            setCommands("temp:" + temperature);
         }
-        setCommands("temp:" + temperature);
-        isOn = true;
 
         return result;
 
