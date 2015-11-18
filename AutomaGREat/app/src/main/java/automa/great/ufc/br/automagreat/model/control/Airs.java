@@ -13,8 +13,8 @@ import br.ufc.great.syssu.base.Tuple;
 public class Airs {
 
     static public boolean isOn = false;
-    static public int minRange;
-    static public int maxRange;
+    static public int minRange = 16;
+    static public int maxRange = 31;
     static public int temperature = 24;
     static private int countClick = 2;
 
@@ -22,8 +22,8 @@ public class Airs {
     private void rangeTemperatureAC(String contextKey) {
         Tuple tupleRange = ContextManager.getInstance().setSync(contextKey, "Range", 5000);
         String range[] = tupleRange.getField(1).getValue().toString().split(", ");
-        String minRange = range[0].substring(1);
-        String maxRange = range[1].substring(0, range[1].length() - 1);
+        //String minRange = range[0].substring(1);
+        //String maxRange = range[1].substring(0, range[1].length() - 1);
         this.minRange = Integer.valueOf(minRange);
         this.maxRange = Integer.valueOf(maxRange);
 

@@ -140,6 +140,28 @@ public class FieldListAdapter extends BaseAdapter {
             }
         });
 
+        if (type.equals(Config.type_airs))
+            setOverflow(convertView);
+        name.setText(r.getName());
+
+        if (r.getType() == Resource.AIR) {
+            icon.setImageDrawable(activity.getResources().getDrawable(R.mipmap.ic_air));
+        } else if (r.getType() == Resource.LAMP) {
+            icon.setImageDrawable(activity.getResources().getDrawable(R.mipmap.ic_lamp));
+        }
+
+        onoff.setChecked(r.getStatus());
+
+        try {
+            description.setText(r.getDescription());
+        } catch (NullPointerException e) {
+            Log.i("OnOffAdapter", "no description");
+        }
+
+        return convertView;
+    }
+
+    private void setOverflow(View convertView) {
         View overflow = convertView.findViewById(R.id.menu_overflow);
         overflow.setTag(position);
         overflow.setOnClickListener(new View.OnClickListener() {
@@ -180,23 +202,6 @@ public class FieldListAdapter extends BaseAdapter {
             }
         });
 
-        name.setText(r.getName());
-
-        if (r.getType() == Resource.AIR) {
-            icon.setImageDrawable(activity.getResources().getDrawable(R.mipmap.ic_air));
-        } else if (r.getType() == Resource.LAMP) {
-            icon.setImageDrawable(activity.getResources().getDrawable(R.mipmap.ic_lamp));
-        }
-
-        onoff.setChecked(r.getStatus());
-
-        try {
-            description.setText(r.getDescription());
-        } catch (NullPointerException e) {
-            Log.i("OnOffAdapter", "no description");
-        }
-
-        return convertView;
     }
 
 }
