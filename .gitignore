@@ -32,5 +32,6 @@ AutomaGREat/app/libs/
 # Project
 */.idea/workspace.xml
 */.idea/libraries
+*/.idea/*
 .DS_Store
 /captures

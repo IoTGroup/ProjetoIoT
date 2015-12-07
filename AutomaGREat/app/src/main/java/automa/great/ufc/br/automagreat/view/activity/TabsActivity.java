@@ -11,11 +11,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import automa.great.ufc.br.automagreat.R;
+import automa.great.ufc.br.automagreat.model.context.ContextKeys;
+import automa.great.ufc.br.automagreat.model.context.ContextManager;
+import automa.great.ufc.br.automagreat.model.control.MotionSensor;
+import automa.great.ufc.br.automagreat.model.listeners.ContextListener;
+import automa.great.ufc.br.automagreat.util.Config;
 import automa.great.ufc.br.automagreat.view.adapter.TabPagerAdapter;
 import automa.great.ufc.br.automagreat.view.layout.SlidingTabLayout;
 
 
-public class TabsActivity extends ActionBarActivity {
+public class TabsActivity extends ActionBarActivity implements ContextListener{
     private Toolbar toolbar;
     private ViewPager pager;
     private TabPagerAdapter adapter;
@@ -23,10 +28,15 @@ public class TabsActivity extends ActionBarActivity {
     private CharSequence Titles[]={"Lamps","Airs Conditioning"};
     private int Numboftabs =2;
 
+    public ContextListener listener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs);
+
+        // registra este ContextListener no ContextManager do Loccam
+        ContextManager.getInstance().registerListener(this);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -49,6 +59,8 @@ public class TabsActivity extends ActionBarActivity {
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
+
+        MotionSensor.getSensorData();
 
     }
 
@@ -80,5 +92,17 @@ public class TabsActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ContextManager.getInstance().unregisterListener(this);
+    }
+
+    @Override
+    public void onContextReady(String data) {
+        Log.d(Config.TAG, "Sensor de presença ativado!");
+
+    }
+
+    @Override
+    public String getContextKey() {
+        return ContextKeys.MOTION_SENSOR;
     }
 }

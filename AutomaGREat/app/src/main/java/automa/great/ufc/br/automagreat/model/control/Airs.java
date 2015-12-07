@@ -19,17 +19,6 @@ public class Airs {
     static private int countClick = 2;
 
 
-    private void rangeTemperatureAC(String contextKey) {
-        Tuple tupleRange = ContextManager.getInstance().setSync(contextKey, "Range", 5000);
-        String range[] = tupleRange.getField(1).getValue().toString().split(", ");
-        //String minRange = range[0].substring(1);
-        //String maxRange = range[1].substring(0, range[1].length() - 1);
-        this.minRange = Integer.valueOf(minRange);
-        this.maxRange = Integer.valueOf(maxRange);
-
-    }
-
-
     static public void onOff() {
         Log.d(Config.TAG, "mButtonOnOff isOn : " + isOn);
 

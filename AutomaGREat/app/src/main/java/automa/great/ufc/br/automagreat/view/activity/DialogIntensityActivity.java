@@ -63,6 +63,7 @@ public class DialogIntensityActivity extends Activity  implements ContextListene
         });
 
         // registra esta activity no Loccam
+        // todo verificar se esta conexão é necesária
         ContextManager.getInstance().registerListener(this);
     }
 
