@@ -1,6 +1,7 @@
 package automa.great.ufc.br.automagreat.view.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,11 @@ public class SplashActivity extends AppCompatActivity implements ContextListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        SharedPreferences settings = getSharedPreferences(TabsActivity.PREFS_SHOW_DIALOG, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("dialogShow", false);
+        editor.commit();
 
         // conecta a aplicação ao loccam
         ContextManager.getInstance().connect(getApplicationContext(), getResources().getString(R.string.app_name), new LoccamConnectedListener() {

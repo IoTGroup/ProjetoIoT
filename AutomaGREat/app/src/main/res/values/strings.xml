@@ -17,5 +17,15 @@
     <string name="celsius">°C</string>
     <string name="no_temp">unavailable</string>
     <string name="ok">OK</string>
+    <string name="dont_show_again">Dont show this message anymore</string>
+    <string name="welcome">Welcome to AutomaGREat</string>
+    <string name="welcome_message">You can control the lamps and the air
+    conditioning devices of GREat Seminar Room in two ways: manually, by using
+    the tabs on the top of the screen or you can let the AutomaGREat
+    control them automatically for you. Please select the mode you prefer:</string>
+    <string name="manual">Manual</string>
+    <string name="auto">Auto</string>​​
+    <string name="manual_selected">Manual mode selected</string>
+    <string name="auto_selected">Automatic mode selected</string>
 
 </resources>

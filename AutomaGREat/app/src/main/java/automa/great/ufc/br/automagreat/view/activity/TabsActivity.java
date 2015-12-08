@@ -1,13 +1,18 @@
 package automa.great.ufc.br.automagreat.view.activity;
 
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import automa.great.ufc.br.automagreat.R;
@@ -25,8 +30,10 @@ public class TabsActivity extends ActionBarActivity implements ContextListener{
     private ViewPager pager;
     private TabPagerAdapter adapter;
     private SlidingTabLayout tabs;
-    private CharSequence Titles[]={"Lamps","Airs Conditioning"};
-    private int Numboftabs =2;
+    private CharSequence Titles[] = {"Lamps","Airs Conditioning"};
+    private int Numboftabs = 2;
+    public static final String PREFS_SHOW_DIALOG = "ShowDialogSelectMode";
+    public static final String PREFS_MODE = "Mode";
 
     public ContextListener listener;
 
@@ -62,6 +69,78 @@ public class TabsActivity extends ActionBarActivity implements ContextListener{
 
         MotionSensor.getSensorData();
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        final SharedPreferences settings = getSharedPreferences(PREFS_SHOW_DIALOG, 0);
+        boolean dialogShow = settings.getBoolean("dialogShowNever", false);
+        if(!dialogShow) {
+            callDialog();
+        }
+    }
+
+    private void callDialog() {
+        // Selecionando entre manual ou automatico
+        final SharedPreferences settings = getSharedPreferences(PREFS_SHOW_DIALOG, 0);
+        final SharedPreferences settings2 = getSharedPreferences(PREFS_MODE, 0);
+        boolean dialogShown = settings.getBoolean("dialogShow", false);
+
+        if (!dialogShown) {
+            View welcomeDialog = View.inflate(TabsActivity.this, R.layout.dialog_select_mode, null);
+            Button btManual = (Button) welcomeDialog.findViewById(R.id.bt_manual);
+            Button btAuto = (Button) welcomeDialog.findViewById(R.id.bt_auto);
+            final CheckBox cb_not_show_again = (CheckBox) welcomeDialog.findViewById(R.id.cb_not_show_again);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(TabsActivity.this);
+            builder.setTitle(null);
+            builder.setView(welcomeDialog);
+            builder.setCancelable(false);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            btManual.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Ligar modo manual
+                    if (!(settings2.getBoolean("ModoManual", true))) {
+                        SharedPreferences.Editor editor = settings2.edit();
+                        editor.putBoolean("ModoManual", true);
+                        editor.commit();
+                    }
+                    if (cb_not_show_again.isChecked()) {
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean("dialogShowNever", true);
+                        editor.commit();
+                    }
+                    Toast.makeText(TabsActivity.this, getString(R.string.manual_selected), Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+            });
+            btAuto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Ligar modo automatico
+                    if (!(settings2.getBoolean("ModoManual", true))) {
+                        SharedPreferences.Editor editor = settings2.edit();
+                        editor.putBoolean("ModoManual", false);
+                        editor.commit();
+                    }
+                    if(cb_not_show_again.isChecked()) {
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean("dialogShowNever", true);
+                        editor.commit();
+                    }
+                    Toast.makeText(TabsActivity.this, getString(R.string.auto_selected), Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+            });
+
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("dialogShow", true);
+            editor.commit();
+        }
     }
 
     @Override
