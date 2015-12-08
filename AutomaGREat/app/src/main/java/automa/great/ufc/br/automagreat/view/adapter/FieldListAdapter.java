@@ -87,6 +87,10 @@ public class FieldListAdapter extends BaseAdapter {
         ImageView icon = (ImageView) convertView.findViewById(R.id.iv_icon);
         TextView name = (TextView) convertView.findViewById(R.id.tv_object_name);
         TextView description = (TextView) convertView.findViewById(R.id.tv_description);
+        if (type.equals(Config.type_airs)){
+            View overflow = convertView.findViewById(R.id.menu_overflow);
+            overflow.setVisibility(View.INVISIBLE);
+        }
 
         Switch onoff = (Switch) convertView.findViewById(R.id.switch_onoff_list);
         listSwitches.add(onoff);
@@ -140,8 +144,9 @@ public class FieldListAdapter extends BaseAdapter {
             }
         });
 
-        if (type.equals(Config.type_airs))
+        if (type.equals(Config.type_lights)) {
             setOverflow(convertView);
+        }
         name.setText(r.getName());
 
         if (r.getType() == Resource.AIR) {
