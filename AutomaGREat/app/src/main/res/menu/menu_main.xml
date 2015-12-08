@@ -1,18 +1,22 @@
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".TabsActivity">
 
     <item
-        android:id="@+id/action_refresh"
-        android:title="@string/refresh"
-        android:icon="@mipmap/ic_refresh"
-        app:showAsAction="always" />
+        android:id="@+id/menu_mode"
+        android:title="@string/select_mode"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_manual"
+                app:showAsAction="always"
+                android:title="@string/manual"/>
+            <item
+                android:id="@+id/action_auto"
+                android:title="@string/auto"
+                app:showAsAction="always"/>
+        </menu>
+    </item>
 
-    <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
 </menu>

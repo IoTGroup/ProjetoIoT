@@ -106,11 +106,9 @@ public class TabsActivity extends ActionBarActivity implements ContextListener{
                 @Override
                 public void onClick(View v) {
                     //Ligar modo manual
-                    if (!(settings2.getBoolean("ModoManual", true))) {
-                        SharedPreferences.Editor editor = settings2.edit();
-                        editor.putBoolean("ModoManual", true);
-                        editor.commit();
-                    }
+                    SharedPreferences.Editor editor2 = settings2.edit();
+                    editor2.putBoolean("ModoManual", true);
+                    editor2.commit();
                     if (cb_not_show_again.isChecked()) {
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putBoolean("dialogShowNever", true);
@@ -124,11 +122,9 @@ public class TabsActivity extends ActionBarActivity implements ContextListener{
                 @Override
                 public void onClick(View v) {
                     //Ligar modo automatico
-                    if (!(settings2.getBoolean("ModoManual", true))) {
-                        SharedPreferences.Editor editor = settings2.edit();
-                        editor.putBoolean("ModoManual", false);
-                        editor.commit();
-                    }
+                    SharedPreferences.Editor editor2 = settings2.edit();
+                    editor2.putBoolean("ModoManual", false);
+                    editor2.commit();
                     if(cb_not_show_again.isChecked()) {
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putBoolean("dialogShowNever", true);
@@ -148,21 +144,26 @@ public class TabsActivity extends ActionBarActivity implements ContextListener{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return false;
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        SharedPreferences settings = getSharedPreferences(PREFS_MODE, 0);
 
         switch (id) {
-            case R.id.action_settings :
-                Toast.makeText(TabsActivity.this, "Settings", Toast.LENGTH_LONG).show();
-                Log.i("Resource", "TESTANDO TESTANDO TESTANDO...");
+            case R.id.action_manual :
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean("ModoManual", true);
+                editor.commit();
+                Toast.makeText(TabsActivity.this, getString(R.string.manual_selected), Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.action_refresh:
-                Toast.makeText(TabsActivity.this, "Refresh", Toast.LENGTH_LONG).show();
-                Log.i("Resource", "TESTANDO TESTANDO TESTANDO...");
+            case R.id.action_auto:
+                SharedPreferences.Editor editor2 = settings.edit();
+                editor2.putBoolean("ModoManual", false);
+                editor2.commit();
+                Toast.makeText(TabsActivity.this, getString(R.string.auto_selected), Toast.LENGTH_LONG).show();
                 return true;
             default:
                 Log.i("Resource", "TESTANDO TESTANDO TESTANDO...");
