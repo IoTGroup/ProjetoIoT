@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import automa.great.ufc.br.automagreat.R;
 import automa.great.ufc.br.automagreat.model.context.ContextKeys;
 import automa.great.ufc.br.automagreat.model.context.ContextManager;
@@ -23,6 +26,7 @@ import automa.great.ufc.br.automagreat.model.listeners.ContextListener;
 import automa.great.ufc.br.automagreat.util.Config;
 import automa.great.ufc.br.automagreat.view.adapter.TabPagerAdapter;
 import automa.great.ufc.br.automagreat.view.layout.SlidingTabLayout;
+import br.ufc.great.syssu.base.Tuple;
 
 
 public class TabsActivity extends ActionBarActivity implements ContextListener{
@@ -34,8 +38,6 @@ public class TabsActivity extends ActionBarActivity implements ContextListener{
     private int Numboftabs = 2;
     public static final String PREFS_SHOW_DIALOG = "ShowDialogSelectMode";
     public static final String PREFS_MODE = "Mode";
-
-    public ContextListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class TabsActivity extends ActionBarActivity implements ContextListener{
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
 
-        MotionSensor.getSensorData();
+
 
     }
 
@@ -176,8 +178,14 @@ public class TabsActivity extends ActionBarActivity implements ContextListener{
 
     @Override
     public void onContextReady(String data) {
-        Log.d(Config.TAG, "Sensor de presença ativado!");
+        //Log.d(Config.TAG, "Sensor de presença ativado!" + data);
 
+        SharedPreferences shared = getSharedPreferences(TabsActivity.PREFS_MODE, 0);
+        boolean modeManual = (shared.getBoolean("ModoManual", false));
+
+
+        MotionSensor.setSensorData(data);
+        MotionSensor.verifyMotion(modeManual);
     }
 
     @Override
